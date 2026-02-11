@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'tailwindcss';
+@import '@splidejs/splide/css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Poppins', sans-serif;
+}
+
+body {
+    @apply bg-black text-sm text-white antialiased;
+}
+
+@layer components {
+    .glass {
+        @apply border border-white/20 bg-white/10;
+    }
+
+    .btn {
+        @apply active:scale-98 cursor-pointer rounded-full px-8 py-2.5 font-medium text-white transition hover:opacity-90;
+    }
+}
+
+@layer utilities {
+    @keyframes tech-marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .tech-marquee-track {
+        animation: tech-marquee 24s linear infinite;
+    }
+
+    .tech-pill {
+        @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-2 text-sm text-white/90 whitespace-nowrap;
+    }
+
+    .tech-pill-dot {
+        @apply size-2 rounded-full bg-cyan-300;
+    }
+}
+
+.blog-post-splide .splide__slide {
+    padding-inline: 0.5rem;
+}
+
+.blog-post-splide .splide__arrow {
+    width: 2rem;
+    height: 2rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    opacity: 1;
+}
+
+.blog-post-splide .splide__arrow svg {
+    fill: #0f172a;
+}
+
+.blog-post-splide .splide__pagination__page {
+    background: #94a3b8;
+}
+
+.blog-post-splide .splide__pagination__page.is-active {
+    background: #0f172a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
