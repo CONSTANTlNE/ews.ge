@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
-        "preline": "^4.0.1"
+        "preline": "^4.0.1",
+        "quill": "^2.0.3"
     }
 }

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import 'tailwindcss';
 @import '@splidejs/splide/css';
+@import 'quill/dist/quill.snow.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -12,7 +13,8 @@
 }
 
 body {
-    @apply bg-black text-sm text-white antialiased;
+    @apply text-sm text-white antialiased;
+    background: linear-gradient(rgba(2, 6, 23, 0.78), rgba(2, 6, 23, 0.86)), url('/assets/images/wallpaper.png') center/cover fixed no-repeat;
 }
 
 @layer components {
@@ -52,6 +54,30 @@ body {
     padding-inline: 0.5rem;
 }
 
+.home-explore-splide .splide__slide {
+    padding-inline: 0.5rem;
+}
+
+.home-explore-splide .splide__arrow {
+    width: 2.25rem;
+    height: 2.25rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    opacity: 1;
+}
+
+.home-explore-splide .splide__arrow svg {
+    fill: #0f172a;
+}
+
+.home-explore-splide .splide__pagination__page {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.home-explore-splide .splide__pagination__page.is-active {
+    background: #22d3ee;
+}
+
 .blog-post-splide .splide__arrow {
     width: 2rem;
     height: 2rem;
@@ -75,3 +101,212 @@ body {
 html {
     scroll-behavior: smooth;
 }
+
+/* --- Quill editor --- */
+.ql-editor {
+    min-height: 12rem;
+}
+
+.ql-editor p {
+    margin: 0.5em 0;
+}
+
+.ql-editor ul,
+.ql-editor ol {
+    padding-left: 1.5em;
+}
+
+.ql-editor ul {
+    list-style-type: disc;
+}
+
+.ql-editor ol {
+    list-style-type: decimal;
+}
+
+/* --- Front-end rich content (Quill output) --- */
+
+
+
+.prose-body h1 {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0.8em 0 0.4em;
+}
+
+
+
+.prose-body h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0.8em 0 0.4em;
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.prose-body h3 {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin: 0.8em 0 0.4em;
+}
+
+.prose-body h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0.8em 0 0.4em;
+}
+
+.prose-body h5,
+.prose-body h6 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0.8em 0 0.4em;
+}
+
+.prose-body{
+    white-space: normal;
+}
+
+.prose-body p {
+    display: block;
+    width: 100%;
+    margin: 0.75em 0;
+    word-break: normal!important;
+    overflow-wrap: break-word;
+}
+
+.prose-body p:first-child,
+.prose-body h1:first-child,
+.prose-body h2:first-child,
+.prose-body h3:first-child {
+    margin-top: 0;
+}
+
+.prose-body p:last-child {
+    margin-bottom: 0;
+}
+
+.prose-body strong,
+.prose-body b {
+    font-weight: 700;
+}
+
+.prose-body em,
+.prose-body i {
+    font-style: italic;
+}
+
+.prose-body u {
+    text-decoration: underline;
+}
+
+.prose-body s,
+.prose-body strike {
+    text-decoration: line-through;
+}
+
+.prose-body sub {
+    vertical-align: sub;
+    font-size: 0.75em;
+}
+
+.prose-body sup {
+    vertical-align: super;
+    font-size: 0.75em;
+}
+
+.prose-body ul,
+.prose-body ol {
+    padding-left: 1.5em;
+    margin: 0.75em 0;
+}
+
+.prose-body ul {
+    list-style-type: disc;
+}
+
+.prose-body ol {
+    list-style-type: decimal;
+}
+
+.prose-body li {
+    margin: 0.25em 0;
+}
+
+.prose-body blockquote {
+    border-left: 3px solid #cbd5e1;
+    padding-left: 1em;
+    margin: 0.75em 0;
+    color: #475569;
+    font-style: italic;
+}
+
+.prose-body pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1em;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 0.75em 0;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.prose-body a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.prose-body a:hover {
+    color: #1d4ed8;
+}
+
+.prose-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 0.75em 0;
+}
+
+.prose-body iframe {
+    max-width: 100%;
+    margin: 0.75em 0;
+}
+
+.prose-body .ql-size-small {
+    font-size: 0.75em;
+}
+
+.prose-body .ql-size-large {
+    font-size: 1.5em;
+}
+
+.prose-body .ql-size-huge {
+    font-size: 2.5em;
+}
+
+.prose-body .ql-align-center {
+    text-align: center;
+}
+
+.prose-body .ql-align-right {
+    text-align: right;
+}
+
+.prose-body .ql-align-justify {
+    text-align: justify;
+}
+
+.prose-body .ql-indent-1 {
+    padding-left: 3em;
+}
+
+.prose-body .ql-indent-2 {
+    padding-left: 6em;
+}
+
+.prose-body .ql-indent-3 {
+    padding-left: 9em;
+}
+

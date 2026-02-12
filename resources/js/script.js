@@ -1,4 +1,5 @@
 import Splide from '@splidejs/splide';
+import Quill from 'quill';
 
 const initNavbar = () => {
     const navbar = document.getElementById('navbar');
@@ -102,33 +103,196 @@ const initAccordions = () => {
 };
 
 const initSliders = () => {
-    document.querySelectorAll('[data-splide-posts]').forEach((slider) => {
-        if (slider.dataset.sliderBound === 'true') {
+    const mountSlider = (selector, overrides = {}) => {
+        document.querySelectorAll(selector).forEach((slider) => {
+            if (slider.dataset.sliderBound === 'true') {
+                return;
+            }
+
+            const splide = new Splide(slider, {
+                type: 'loop',
+                perPage: 3,
+                perMove: 1,
+                gap: '1rem',
+                autoplay: true,
+                interval: 3200,
+                pauseOnHover: true,
+                pagination: true,
+                arrows: true,
+                breakpoints: {
+                    1024: {
+                        perPage: 2,
+                    },
+                    640: {
+                        perPage: 1,
+                    },
+                },
+                ...overrides,
+            });
+
+            splide.mount();
+            slider.dataset.sliderBound = 'true';
+        });
+    };
+
+    mountSlider('[data-splide-posts]');
+    mountSlider('[data-splide-projects]', {
+        perPage: 2,
+        interval: 3800,
+        breakpoints: {
+            1024: {
+                perPage: 2,
+            },
+            640: {
+                perPage: 1,
+            },
+        },
+    });
+};
+
+const initLocaleTabs = () => {
+    document.querySelectorAll('[data-locale-tabs]').forEach((tabs) => {
+        if (tabs.dataset.tabsBound === 'true') {
             return;
         }
 
-        const splide = new Splide(slider, {
-            type: 'loop',
-            perPage: 3,
-            perMove: 1,
-            gap: '0.5rem',
-            autoplay: true,
-            interval: 2800,
-            pauseOnHover: true,
-            pagination: true,
-            arrows: true,
-            breakpoints: {
-                1024: {
-                    perPage: 2,
-                },
-                640: {
-                    perPage: 1,
-                },
-            },
+        const buttons = Array.from(tabs.querySelectorAll('[data-locale-tab-button]'));
+        const panels = Array.from(tabs.querySelectorAll('[data-locale-tab-panel]'));
+        const activeLocaleInput = tabs.querySelector('[data-locale-active-input]');
+
+        if (!buttons.length || !panels.length) {
+            return;
+        }
+
+        const setActiveTab = (locale) => {
+            const activeLocale = panels.some((panel) => panel.dataset.localeTabPanel === locale)
+                ? locale
+                : buttons[0].dataset.localeTabButton;
+
+            buttons.forEach((button) => {
+                const isActive = button.dataset.localeTabButton === activeLocale;
+                button.classList.toggle('bg-slate-900', isActive);
+                button.classList.toggle('border-slate-900', isActive);
+                button.classList.toggle('text-white', isActive);
+                button.classList.toggle('text-slate-600', !isActive);
+                button.classList.toggle('border-slate-300', !isActive);
+            });
+
+            panels.forEach((panel) => {
+                panel.hidden = panel.dataset.localeTabPanel !== activeLocale;
+            });
+
+            if (activeLocaleInput) {
+                activeLocaleInput.value = activeLocale;
+            }
+        };
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                setActiveTab(button.dataset.localeTabButton);
+            });
         });
 
-        splide.mount();
-        slider.dataset.sliderBound = 'true';
+        setActiveTab(tabs.dataset.initialLocale || activeLocaleInput?.value || buttons[0].dataset.localeTabButton);
+        tabs.dataset.tabsBound = 'true';
+    });
+};
+
+const initQuillEditors = () => {
+    const toolbarOptions = [
+        [{ header: [2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['blockquote', 'code-block', 'link'],
+        ['clean'],
+    ];
+
+    document.querySelectorAll('[data-quill-editor]').forEach((editor) => {
+        if (editor.dataset.quillBound === 'true') {
+            return;
+        }
+
+        const panel = editor.closest('[data-locale-tab-panel]');
+        const input = panel?.querySelector('[data-quill-input]');
+
+        if (!input) {
+            return;
+        }
+
+        const quill =new Quill(editor, {
+            theme: 'snow',
+            modules: {
+                // imageResize is removed from here
+                toolbar: [
+                    [{'header': [1, 2, 3, 4, 5, 6, false]}],
+                    [{'font': []}],
+                    [{'size': ['small', false, 'large', 'huge']}],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote'],
+                    [{'color': []}, {'background': []}],
+                    [{'script': 'sub'}, {'script': 'super'}],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{'indent': '-1'}, {'indent': '+1'}],
+                    [{'direction': 'rtl'}],
+                    [{'align': []}],
+                    ['link', 'image', 'video'],
+                    ['clean']
+                ]
+            },
+            // Maximum compatible formats for Quill 2.0.3
+            formats: [
+                'header', 'font', 'size',
+                'bold', 'italic', 'underline', 'strike',
+                'color', 'background',
+                'script', 'blockquote',
+                'list', 'indent', 'direction',
+                'align', 'link', 'image', 'video'
+            ]
+        });
+
+        if (input.value) {
+            quill.clipboard.dangerouslyPasteHTML(input.value);
+            quill.setSelection(quill.getLength(), 0);
+        }
+
+        const syncInput = () => {
+            input.value = quill.getText().trim().length === 0 ? '' : quill.getSemanticHTML();
+        };
+
+        syncInput();
+        quill.on('text-change', syncInput);
+
+        editor.__quill = quill;
+        editor.dataset.quillBound = 'true';
+    });
+
+    document.querySelectorAll('form').forEach((form) => {
+        if (form.dataset.quillSubmitBound === 'true') {
+            return;
+        }
+
+        const editors = form.querySelectorAll('[data-quill-editor]');
+
+        if (!editors.length) {
+            return;
+        }
+
+        form.addEventListener('submit', () => {
+            editors.forEach((editor) => {
+                if (!editor.__quill) {
+                    return;
+                }
+
+                const panel = editor.closest('[data-locale-tab-panel]');
+                const input = panel?.querySelector('[data-quill-input]');
+
+                if (input) {
+                    input.value = editor.__quill.getText().trim().length === 0 ? '' : editor.__quill.getSemanticHTML();
+                }
+            });
+        });
+
+        form.dataset.quillSubmitBound = 'true';
     });
 };
 
@@ -136,6 +300,8 @@ const initSite = () => {
     initNavbar();
     initAccordions();
     initSliders();
+    initQuillEditors();
+    initLocaleTabs();
 };
 
 if (document.readyState === 'loading') {
