@@ -21,7 +21,7 @@
                 <img src="{{ $post->getFirstMediaUrl('featured_image', 'card') ?: $post->getFirstMediaUrl('featured_image') }}" alt="{{ $post->title }}" class="mt-7 h-64 w-full rounded-xl object-cover sm:h-72 sm:rounded-2xl md:mt-10 md:h-96" />
             @endif
 
-            <div class="prose-body mt-6 rounded-xl border border-white/20 p-4 text-gray-100 sm:mt-8 sm:rounded-2xl sm:p-6 md:p-8 md:text-base/8 glass">
+            <div class="prose-body mt-6 rounded-xl border border-white/20 bg-black/30 p-4 text-gray-100 backdrop-blur-md sm:mt-8 sm:rounded-2xl sm:p-6 md:p-8 md:text-base/8">
                 {!! str_replace('&nbsp;', ' ', $post->body) !!}
             </div>
         </article>

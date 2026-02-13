@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easy Web Solutions</title>
     <link rel="canonical" href="{{url()->current()}}">
-    <meta name="description" content="Web და Mobile დეველოპმენტი">
+    <meta name="description" content="Place where your ideas come true">
     <meta name="robots" content="index, follow">
     <meta property="og:site_name" content="ews.ge">
     <meta property="og:locale" content="{{app()->getLocale()}}">
     <meta property="og:title" content="EasyWebSolutions | Custom Web Development & Digital Strategy">
-    <meta property="og:description" content="Web და Mobile დეველოპმენტი">
+    <meta property="og:description" content="Place where your ideas come true">
     <meta property="og:type" content="business.business">
     <meta property="og:image" content="{{asset('assets/images/cut_logo.png')}}">
     <meta property="og:url" content="{{url()->current()}}">
