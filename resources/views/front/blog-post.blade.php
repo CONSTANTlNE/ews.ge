@@ -9,9 +9,9 @@
                 @if ($post->categories->isNotEmpty())
                     {{ $post->categories->first()->name }}
                 @endif
-                @if ($post->published_at)
-                     {{ $post->published_at->format('M d, Y') }}
-                @endif
+{{--                @if ($post->published_at)--}}
+{{--                     {{ $post->published_at->format('M d, Y') }}--}}
+{{--                @endif--}}
             </p>
             <h1 class="mt-4 text-3xl/10 font-semibold tracking-tight sm:text-4xl/12 md:mt-5 md:text-5xl/14">{{ $post->title }}</h1>
             @if ($post->excerpt)
@@ -28,7 +28,7 @@
         </article>
 
         <aside class="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 lg:sticky lg:top-24 lg:h-max">
-            <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Categories</p>
+            <p class="text-xs uppercase tracking-[0.2em] text-slate-500">{{__('Categories')}}</p>
             <div class="mt-4 flex flex-wrap gap-2 lg:flex-col">
                 @foreach ($categories as $category)
                     <a href="#" class="rounded-full border px-3 py-1.5 text-xs font-medium transition {{ $post->categories->contains($category->id) ? 'border-emerald-300 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-white text-slate-700 hover:border-emerald-300 hover:text-emerald-700' }}">
@@ -42,8 +42,8 @@
         @if ($relatedPosts->isNotEmpty())
             <section class="mx-auto mt-12 max-w-6xl">
                 <div class="flex items-end justify-between gap-4">
-                    <h3 class="text-2xl font-semibold">Related posts</h3>
-                    <a href="{{ route('blog.index') }}" class="text-sm text-slate-600 transition hover:text-slate-900">Back to blog</a>
+                    <h3 class="text-2xl font-semibold">{{__('Related posts')}}</h3>
+                    <a href="{{ route('blog.index') }}" class="text-sm text-slate-600 transition hover:text-slate-900">{{__('Back to blog')}}</a>
                 </div>
 
                 <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -57,11 +57,11 @@
                                 <h4 class="mt-3 text-xl/8 font-medium text-slate-900 transition group-hover:text-emerald-700">
                                     {{ $related->title }}
                                 </h4>
-                                @if ($related->published_at)
-                                    <p class="mt-5 text-xs text-slate-500">{{ $related->published_at->format('M d, Y') }}</p>
-                                @endif
+{{--                                @if ($related->published_at)--}}
+{{--                                    <p class="mt-5 text-xs text-slate-500">{{ $related->published_at->format('M d, Y') }}</p>--}}
+{{--                                @endif--}}
                                 <a href="{{ route('blog.show', $related->slug) }}" class="mt-4 inline-flex items-center gap-2 text-sm text-slate-700 transition group-hover:text-slate-900">
-                                    Read more
+                                   {{__('Read more')}}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                         <path d="M5 12h14"></path>
                                         <path d="m12 5 7 7-7 7"></path>
@@ -75,8 +75,8 @@
 
             <section class="mx-auto mt-12 max-w-6xl">
                 <div class="flex items-end justify-between gap-4">
-                    <h3 class="text-2xl font-semibold">Similar Posts Slider</h3>
-                    <p class="text-sm text-slate-500">Swipe or use arrows</p>
+                    <h3 class="text-2xl font-semibold">{{__('Similar Posts')}}</h3>
+{{--                    <p class="text-sm text-slate-500">Swipe or use arrows</p>--}}
                 </div>
 
                 <div class="blog-post-splide splide mt-6" data-splide-posts>
@@ -93,11 +93,11 @@
                                             <h4 class="mt-3 text-xl/8 font-medium text-slate-900 transition group-hover:text-emerald-700">
                                                 {{ $related->title }}
                                             </h4>
-                                            @if ($related->published_at)
-                                                <p class="mt-5 text-xs text-slate-500">{{ $related->published_at->format('M d, Y') }}</p>
-                                            @endif
+{{--                                            @if ($related->published_at)--}}
+{{--                                                <p class="mt-5 text-xs text-slate-500">{{ $related->published_at->format('M d, Y') }}</p>--}}
+{{--                                            @endif--}}
                                             <a href="{{ route('blog.show', $related->slug) }}" class="mt-4 inline-flex items-center gap-2 text-sm text-slate-700 transition group-hover:text-slate-900">
-                                                Read article
+                                                {{__('Read article')}}
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                                     <path d="M5 12h14"></path>
                                                     <path d="m12 5 7 7-7 7"></path>
@@ -114,5 +114,6 @@
         @endif
 
         </div>
+        @include('front.components.contact')
     </main>
 @endsection

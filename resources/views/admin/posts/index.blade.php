@@ -165,7 +165,7 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3">
-                                            <p>{{ $titleEn ?: '-' }}</p>
+                                            <a target="_blank" href="{{route('blog.show',['locale'=>app()->getLocale(),'slug'=>$post->slug])}}">{{ $titleEn ?: '-' }}</a>
                                             <p class="text-xs text-slate-500">{{ $titleKa ?: '-' }}</p>
                                         </td>
                                         <td class="px-4 py-3 text-slate-600">{{ $post->slug }}</td>

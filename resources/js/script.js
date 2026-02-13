@@ -6,6 +6,7 @@ const initNavbar = () => {
     const mobileMenu = document.getElementById('mobile-menu');
     const menuBtn = document.getElementById('menu-btn');
     const closeBtn = document.getElementById('close-btn');
+    const closeBtn2 = document.getElementById('close-btn2');
 
     if (navbar) {
         const handleScroll = () => {
@@ -32,6 +33,22 @@ const initNavbar = () => {
             mobileMenu.classList.remove('translate-x-0');
             mobileMenu.classList.add('-translate-x-full');
         });
+    }
+
+    if (closeBtn2 && mobileMenu) {
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('-translate-x-full');
+        });
+    }
+
+    if (closeBtn2 && mobileMenu) {
+        closeBtn2.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('-translate-x-full');
+        });
+
+
     }
 };
 

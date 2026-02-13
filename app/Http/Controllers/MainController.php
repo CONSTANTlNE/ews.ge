@@ -59,7 +59,7 @@ class MainController extends Controller
             ->whereHas('categories', fn ($query) => $query->whereIn('categories.id', $post->categories->pluck('id')))
             ->with(['categories', 'media'])
             ->latest('published_at')
-            ->limit(3)
+            ->limit(5)
             ->get();
 
         $categories = Category::query()

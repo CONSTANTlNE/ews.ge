@@ -28,6 +28,7 @@ closeBtn.addEventListener("click", () => {
     mobileMenu.classList.add("-translate-x-full");
 });
 
+
 const faqs = [
     {
         question: 'Do I need coding or design experience to use PrebuiltUI?',
@@ -59,13 +60,13 @@ const container = document.getElementById('faq-container');
 
 container.innerHTML = faqs.map((item, index) => `
     <div class="faq-item flex flex-col glass rounded-md">
-        <h3 
+        <h3
             class="faq-header flex cursor-pointer hover:bg-white/10 transition items-start justify-between gap-4 p-4 font-medium"
             data-index="${index}"
         >
             ${item.question}
             <svg class="chevron size-5 transition-all shrink-0 duration-400"
-                fill="none" stroke="currentColor" stroke-width="2" 
+                fill="none" stroke="currentColor" stroke-width="2"
                 viewBox="0 0 24 24">
                 <path d="M6 9l6 6 6-6" />
             </svg>

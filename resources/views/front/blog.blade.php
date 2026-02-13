@@ -94,5 +94,6 @@
                 </div>
             @endif
         </div>
+        @include('front.components.contact')
     </main>
 @endsection
