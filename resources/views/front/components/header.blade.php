@@ -22,7 +22,7 @@
 <div id="mobile-menu" class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-black/20 text-lg font-medium backdrop-blur-2xl transition duration-300 md:hidden -translate-x-full">
     <a href="/">{{__('Home')}}</a>
 {{--    <a href="{{route('projects.index',['locale'=>app()->getLocale()])}}">{{__('Projects')}}</a>--}}
-    <a href="{{route('projects.index',['locale'=>app()->getLocale()])}}">{{__('Blog')}}</a>
+    <a href="{{route('blog.index',['locale'=>app()->getLocale()])}}">{{__('Blog')}}</a>
     <a id="close-btn2" href="#contact">{{__('Contact')}}</a>
 {{--    <a class="btn glass" href="{{ route('login') }}">Login</a>--}}
     <button id="close-btn" class="rounded-md p-2 glass">
