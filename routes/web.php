@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('{locale?}')
     ->where(['locale' => '[a-zA-Z]{2}'])
+
     ->middleware(['localization'])->group(function () {
         Route::controller(MainController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/blog', 'blog')->name('blog.index');
+            Route::get('/blog/{slug}', 'show')->name('blog.show');
         });
-
-        Route::get('/blog', [MainController::class, 'blog'])->name('blog.index');
-        Route::get('/blog/{slug}', [MainController::class, 'show'])->name('blog.show');
 
         Route::get('/projects', function () {
             $projects = [
@@ -69,7 +69,6 @@ Route::prefix('{locale?}')
                 'featuredProject' => $projects[0],
             ]);
         })->name('projects.index');
-
         Route::get('/projects/{slug}', function (string $slug) {
             $projects = [
                 [
@@ -141,35 +140,40 @@ Route::prefix('{locale?}')
         })->name('projects.show');
     });
 
-Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::prefix('admin')->name('admin.')
+    ->middleware(['auth'])
+    ->group(function () {
 
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+        Route::controller(PostController::class)->prefix('posts')->name('posts.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{post}', 'update')->name('update');
+            Route::delete('/{post}', 'destroy')->name('destroy');
+        });
 
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+        Route::controller(CategoryController::class)->prefix('categories')->name('categories.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::put('/{category}', 'update')->name('update');
+            Route::delete('/{category}', 'destroy')->name('destroy');
+        });
 
-    Route::controller(LocalizationController::class)->group(function () {
-        Route::get('/main', 'adminMain')->name('admin.main');
-        Route::get('/languages/all', 'languages')->name('languages');
-        Route::post('/languages/position/change', 'changePosition')->name('changePosition');
-        //        Start JSON CRUD
-        Route::get('/static/translation/add', 'addTranslation')->name('addStaticTranslation');
-        Route::post('/static/translation/store', 'storeStaticTranslations')->name('storeStaticTranslations');
-        Route::post('/static/translation/update', 'updateStaticTranslation')->name('updateStaticTranslation');
+        Route::controller(LocalizationController::class)->group(function () {
+            Route::get('/main', 'adminMain')->name('admin.main');
+            Route::get('/languages/all', 'languages')->name('languages');
+            Route::post('/languages/position/change', 'changePosition')->name('changePosition');
+            //        Start JSON CRUD
+            Route::get('/static/translation/add', 'addTranslation')->name('addStaticTranslation');
+            Route::post('/static/translation/store', 'storeStaticTranslations')->name('storeStaticTranslations');
+            Route::post('/static/translation/update', 'updateStaticTranslation')->name('updateStaticTranslation');
 
-        Route::get('/testpage', 'testPage')->name('testPage');
-        Route::post('/language/store', 'createLanguage')->name('createLanguage');
-        Route::post('/language/status/update', 'updateLangStatus')->name('updateLangStatus');
-        Route::post('/language/delete', 'deleteLanguage')->name('deleteLanguage');
-        Route::post('/language/main/update', 'setMainLang')->name('setMainLang');
-        Route::post('static/autotranslate', 'autoTranslate')->name('autotranslate');
+            Route::get('/testpage', 'testPage')->name('testPage');
+            Route::post('/language/store', 'createLanguage')->name('createLanguage');
+            Route::post('/language/status/update', 'updateLangStatus')->name('updateLangStatus');
+            Route::post('/language/delete', 'deleteLanguage')->name('deleteLanguage');
+            Route::post('/language/main/update', 'setMainLang')->name('setMainLang');
+            Route::post('static/autotranslate', 'autoTranslate')->name('autotranslate');
+        });
+
     });
-
-});

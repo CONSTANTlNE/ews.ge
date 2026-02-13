@@ -12,7 +12,17 @@
                 <p class="mt-2 text-sm text-gray-200">Access your dashboard, projects, and activity.</p>
             </div>
 
-            <form class="mt-8 space-y-4" method="POST" action="#">
+            @if($errors->any())
+                <div class="mt-6 rounded-xl border border-rose-400/30 bg-rose-500/15 px-4 py-3 text-sm text-rose-200">
+                    <ul class="list-disc space-y-1 pl-4">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form class="mt-8 space-y-4" method="POST" action="{{route('login')}}">
                 @csrf
                 <label class="block">
                     <span class="mb-2 block text-sm text-gray-200">Email address</span>

@@ -30,23 +30,11 @@ class FortifyServiceProvider extends ServiceProvider
             return to_route('index');
         });
 
-        Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.forget-password');
-        });
-
-        Fortify::resetPasswordView(function (Request $request) {
-            return view('auth.reset-password', ['request' => $request]);
-        });
-
         $this->app->instance(LoginResponse::class, new class implements LoginResponse
         {
             public function toResponse($request)
             {
-                if (auth()->user()->is_waiter == 1) {
-                    return redirect(route('table.notifications', ['locale' => session()->get('locale')]));
-                }
-
-                return redirect(route('dashboard', ['locale' => session()->get('locale')]));
+                return to_route('index');
             }
         });
 

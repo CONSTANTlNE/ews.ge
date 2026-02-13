@@ -1,33 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="{{app()->getLocale()}}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Genesis - PrebuiltUI</title>
+    <title>Easy Web Solutions</title>
+    <link rel="canonical" href="{{url()->current()}}">
+    <meta name="description" content="Web და Mobile დეველოპმენტი">
+    <meta name="robots" content="index, follow">
+    <meta property="og:site_name" content="ews.ge">
+    <meta property="og:locale" content="{{app()->getLocale()}}">
+    <meta property="og:title" content="EasyWebSolutions | Custom Web Development & Digital Strategy">
+    <meta property="og:description" content="Web და Mobile დეველოპმენტი">
+    <meta property="og:type" content="business.business">
+    <meta property="og:image" content="{{asset('assets/images/cut_logo.png')}}">
+    <meta property="og:url" content="{{url()->current()}}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <link rel="icon" type="image/png" href="{{asset('assets/images/logo.png')}}" />
+
     <style>
         .ews-text {
-            /*font-family: "Inter", "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;*/
-            /*font-weight: 800;*/
-            /*letter-spacing: 0.06em;*/
-            /*!*text-transform: uppercase;*!*/
-
-            /*!* blue -> silver gradient *!*/
-            /*background: linear-gradient(90deg,*/
-            /*#0B3D91 0%,*/
-            /*#13A8FF 40%,*/
-            /*#D6DEE8 100%*/
-            /*);*/
-
-            /*-webkit-background-clip: text;*/
-            /*background-clip: text;*/
-            /*color: transparent;*/
-
-            /*!* subtle depth *!*/
-            /*text-shadow: 0 2px 10px rgba(19, 168, 255, 0.18);*/
-
 
             color: #1c0f4a;
             background-image: linear-gradient(45deg, #1c0f4a , #8e3cd9 50%, #f72cff 100%);
@@ -37,28 +29,6 @@
             display: inline-block;
         }
 
-        /*.ews-text {*/
-        /*    font-family: "Inter", "Montserrat", system-ui, sans-serif;*/
-        /*    font-weight: 800;*/
-        /*    letter-spacing: 0.06em;*/
-        /*    text-transform: uppercase;*/
-
-        /*    color: #C9D3DF; !* cool silver *!*/
-        /*    text-shadow:*/
-        /*        0 1px 0 rgba(255,255,255,0.22),*/
-        /*        0 10px 30px rgba(19,168,255,0.22);*/
-        /*}*/
-
-        /*.ews-wrap {*/
-        /*    font-family: "Inter", "Montserrat", system-ui, sans-serif;*/
-        /*    font-weight: 800;*/
-        /*    letter-spacing: 0.05em;*/
-        /*    text-transform: uppercase;*/
-        /*}*/
-
-        /*.ews-easy { color: #0B3D91; }     !* deep blue *!*/
-        /*.ews-web { color: #13A8FF; }      !* electric blue *!*/
-        /*.ews-solutions { color: #D6DEE8; }!* cool silver *!*/
     </style>
 </head>
 
